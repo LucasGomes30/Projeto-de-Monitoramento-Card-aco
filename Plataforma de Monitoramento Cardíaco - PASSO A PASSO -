@@ -1,0 +1,157 @@
+Plataforma de Monitoramento Cardíaco
+===================================
+
+Descrição
+---------
+Esta plataforma visa monitorar a atividade cardíaca de pacientes com comorbidades cardiovasculares durante atividades fisioterapêuticas. Ela inclui funcionalidades para registro de usuários, autenticação, confirmação de e-mail e visualização de dados de batimentos cardíacos.
+
+Tecnologias Utilizadas
+----------------------
+- Python
+- Flask
+- SQLAlchemy
+- Flask-Migrate
+- Flask-Login
+- Flask-Mail
+- Pandas
+- Matplotlib
+- MySQL
+
+Instalação
+==========
+
+Requisitos do Sistema
+---------------------
+- Python 3.8+
+- MySQL
+
+Passos para Instalação
+----------------------
+
+1. Clone o repositório
+   -------------------
+git clone <URL_DO_REPOSITORIO>
+cd <NOME_DO_DIRETORIO>
+
+
+
+2. Crie e ative um ambiente virtual
+--------------------------------
+python -m venv venv
+source venv/bin/activate # No Windows: venv\Scripts\activate
+
+
+
+3. Instale as dependências
+-----------------------
+pip install -r requirements.txt
+
+
+
+4. Configuração do Banco de Dados
+------------------------------
+1. Configure o MySQL para ter um banco de dados chamado `monitoramento_pacientes`.
+2. Atualize as configurações do banco de dados no arquivo `flasktest.py`.
+
+5. Inicie o banco de dados
+-----------------------
+flask db init
+flask db migrate -m "Initial migration."
+flask db upgrade
+
+
+6. Configuração do Arquivo JSON
+----------------------------
+Coloque o arquivo `heartrate_auto.json` no caminho correto no seu sistema. Certifique-se de que o caminho no código está correto.
+
+Variáveis de Ambiente
+---------------------
+Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
+FLASK_APP=flasktest.py
+FLASK_ENV=development
+MAIL_USERNAME=monitoramentocardiaco1@gmail.com
+MAIL_PASSWORD=rwcs wupf jplb jsmu
+SECRET_KEY=*********
+SECURITY_PASSWORD_SALT=JaunFodido2024
+
+
+Estrutura do Projeto
+--------------------
+- `app/`: Código da aplicação.
+- `templates/`: Arquivos HTML.
+- `static/`: Arquivos estáticos (CSS, JavaScript, imagens).
+- `migrations/`: Migrações do banco de dados.
+- `tests/`: Testes automatizados (não incluídos aqui).
+
+Configuração
+============
+Configuração do Flask
+---------------------
+No arquivo `flasktest.py`, as principais configurações estão definidas. Certifique-se de que todas as variáveis de configuração estão devidamente ajustadas para seu ambiente de desenvolvimento/produção.
+
+Configuração do Banco de Dados
+------------------------------
+Instruções para inicializar e migrar o banco de dados estão incluídas nas seções de instalação acima.
+
+Funcionalidades
+===============
+
+Registro e Login de Usuários
+----------------------------
+- **Registro**: Os usuários podem se registrar com um nome de usuário, e-mail e senha. Após o registro, um e-mail de confirmação é enviado.
+- **Login**: Os usuários podem fazer login após confirmar seu e-mail.
+
+Monitoramento e Visualização de Dados
+-------------------------------------
+- **Visualização de Batimentos Cardíacos**: Os usuários autenticados podem visualizar gráficos de seus batimentos cardíacos com base em data e hora selecionadas.
+
+Endpoints da API
+================
+
+- `GET /`: Redireciona para a página de login.
+- `GET /login`: Renderiza a página de login.
+- `POST /login`: Autentica o usuário.
+- `GET /logout`: Desloga o usuário.
+- `GET /register`: Renderiza a página de registro.
+- `POST /register`: Registra um novo usuário e envia um e-mail de confirmação.
+- `GET /confirm/<token>`: Confirma o e-mail do usuário.
+- `GET /index`: Renderiza a página principal (disponível apenas para usuários autenticados).
+- `POST /plot`: Gera e exibe um gráfico de batimentos cardíacos (disponível apenas para usuários autenticados).
+
+Exemplos de Uso
+===============
+
+Login
+-----
+```python
+import requests
+
+data = {
+    'username': 'testuser',
+    'password': 'testpassword'
+}
+response = requests.post('http://localhost:8080/login', data=data)
+print(response.text)
+Registro
+
+import requests
+
+data = {
+    'username': 'newuser',
+    'email': 'newuser@example.com',
+    'password': 'newpassword'
+}
+response = requests.post('http://localhost:8080/register', data=data)
+print(response.text)
+Testes
+Para executar os testes (assumindo que você tenha testes implementados):
+
+
+Contribuição
+Para contribuir com o projeto:
+
+Faça um fork do repositório.
+Crie uma nova branch: git checkout -b minha-feature.
+Faça suas alterações e commit: git commit -m 'Minha nova feature'.
+Envie para o repositório remoto: git push origin minha-feature.
+Abra um Pull Request.
