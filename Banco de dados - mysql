@@ -1,0 +1,46 @@
+import mysql.connector
+
+formatted_data = [
+    {
+        'usuario': 'Douglas',
+        'data': '2024-03-22',
+        'hora': '07:56',
+        'batimentos_cardiacos': 78
+    },
+    {
+        'usuario': 'Ruan',
+        'data': '2024-03-21',
+        'hora': '07:57',
+        'batimentos_cardiacos': 89
+    },
+    {
+        'usuario': 'Márcia',
+        'data': '2024-03-20',
+        'hora': '07:58',
+        'batimentos_cardiacos': 82
+    },
+    
+]
+
+
+conn = mysql.connector.connect(
+    host="localhost",
+    user="Ruan",
+    password="ce70%",
+    database="monitoramento_pacientes"
+)
+cursor = conn.cursor()
+
+
+for entry in formatted_data:
+    cursor.execute("""
+        INSERT INTO dados_pacientes (usuario, data, hora, batimentos_cardiacos)
+        VALUES (%s, %s, %s, %s)
+    """, (entry['usuario'], entry['data'], entry['hora'], entry['batimentos_cardiacos']))
+
+
+conn.commit()
+
+
+cursor.close()
+conn.close()
